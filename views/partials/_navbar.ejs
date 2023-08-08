@@ -19,7 +19,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <% categories.forEach(category => { %>
-                <li><a class="dropdown-item" href="#"><%= category.name %></a></li>
+                <li><a class="dropdown-item" href="/kategori/<%= category.slug %>"><%= category.name %></a></li>
               <% }) %>
             </ul>
           </li>

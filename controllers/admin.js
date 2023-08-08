@@ -6,12 +6,14 @@ const slugField = require("../helpers/slugfield")
 // movies start
 exports.post_create_movie = async (req, res) => {
     try{
-        const { original_name, turkish_name, categories } = req.body
+        const { original_name, turkish_name, publish_year, imdb, categories } = req.body
 
         await Movie.create({
             image: req.file.filename,
             original_name: original_name,
             turkish_name: turkish_name,
+            publish_year: publish_year,
+            imdb: imdb,
             categories: categories,
             slug: slugField(original_name)
         })
@@ -35,8 +37,7 @@ exports.get_create_movie = async (req,res) => {
 }
 
 exports.get_movies = async (req, res) => {
-    const movies = await Movie.find()
-
+    const movies = await Movie.find().populate("categories")
     return res.render("admin/movies/movies", {
         title: "Filmler",
         movies: movies

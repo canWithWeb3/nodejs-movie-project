@@ -6,6 +6,10 @@ exports.movie = [
     check("original_name").trim().isLength({ min: 2 }).withMessage("Orijinal adı en az 2 karakter içerebilir"),
     check("turkish_name").trim().notEmpty().withMessage("Türkçe adı boş bırakılamaz"),
     check("turkish_name").trim().isLength({ min: 2 }).withMessage("Türkçe adı en az 2 karakter içerebilir"),
+    check("publish_year").trim().notEmpty().withMessage("Yapım yılı boş bırakılamaz"),
+    check("publish_year").trim().isNumeric().withMessage("Yapım yılı boş bırakılamaz"),
+    check("imdb").trim().notEmpty().withMessage("Imdb boş bırakılamaz"),
+    check("imdb").trim().isNumeric().withMessage("Imdb boş bırakılamaz"),
     check("categories").notEmpty().withMessage("Kategori boş bırakılamaz")
 ]
 

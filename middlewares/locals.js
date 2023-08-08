@@ -7,7 +7,8 @@ module.exports = async (req, res, next) => {
     res.locals.error = ""
     res.locals.errors = {}
     
-    const categories = await Category.find().sort({ name: 1 })
+    // const categories = await Category.find().sort({ name: 1 })
+    const categories = []
     res.locals.categories = categories
 
     next()

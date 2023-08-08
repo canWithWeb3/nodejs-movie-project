@@ -1,7 +1,9 @@
-<div class="card position-relative">
-    <img src="/static/uploads/<%= movie.image %>" class="card-img-top" alt="<%= movie.turkish_name %>">
-    <div class="position-absolute bottom-0 start-0">
-        <h5 class="card-title text-warning ms-3 mb-2"><%= movie.original_name %></h5>
-        <h5 class="card-title text-light ms-3 mb-3"><%= movie.turkish_name %></h5>
+<a href="/movie/<%= movie.slug %>">
+    <div class="card position-relative">
+        <img src="/static/uploads/<%= movie.image %>" class="card-img-top" alt="<%= movie.turkish_name %>">
+        <div class="position-absolute bottom-0 start-0">
+            <h5 class="card-title text-warning ms-3 mb-1"><%= movie.original_name %></h5>
+            <h5 class="card-title text-light ms-3 mb-3"><%= movie.turkish_name %></h5>
+        </div>
     </div>
-</div>
+</a>

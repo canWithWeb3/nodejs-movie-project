@@ -13,8 +13,16 @@ const movieSchema = Schema({
         type: String,
         required: true
     },
+    publish_year: {
+        type: Number,
+        required: true
+    },
+    imdb: {
+        type: Number,
+        required: true
+    },
     categories: [{
-        type: Schema.Types.ObjectId, 
+        type: Schema.Types.ObjectId,
         ref: "Category",
         required: true
     }],

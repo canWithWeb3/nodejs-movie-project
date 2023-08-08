@@ -1,0 +1,40 @@
+<%- include('../partials/_html-start.ejs') %>
+<%- include('../partials/_navbar.ejs') %>
+
+<main>
+    <div class="container my-5">
+        <!-- movie up -->
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h1 class="h2"><%= title %></h1>
+            <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-warning">Fragman</button>
+                <button class="btn btn-secondary">Türkçe Altazılı</button>
+                <button class="btn btn-secondary">Türkçe Dublajlı</button>
+            </div>
+        </div>
+
+        <!-- movie -->
+        <iframe width="100%" height="490" class="my-3" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+        </iframe>
+
+        <!-- movie detail -->
+        <div class="row">
+            <div class="col-md-2">
+                <img src="/static/uploads/<%= movie.image %>" alt="" class="img-fluid">
+            </div>
+            <div class="col-md-10">
+                <p>
+                    <strong style="width: 90px;">IMDB</strong> : 7.2
+                </p>
+                <p>
+                    <strong style="width: 90px;">IMDB</strong> : 7.2
+                </p>
+                <p>
+                    <strong style="width: 90px;">IMDB</strong> : 7.2
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('../partials/_html-finish.ejs') %>
