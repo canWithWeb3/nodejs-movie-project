@@ -1,0 +1,58 @@
+<%- include('../partials/_html-start.ejs') %>
+<%- include('../partials/_navbar.ejs') %>
+
+<main>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-2">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">Filtrele</div>
+                    <div class="card-body">
+                        <form method="POST">
+                            <!-- categories -->
+                            <div class="mb-3">
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Kategori seçiniz</option>
+                                    <option value="1">One</option>
+                                </select>
+                            </div>
+                            <!-- imdb -->
+                            <div class="mb-3">
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Imdb seçiniz</option>
+                                    <option value="1">One</option>
+                                </select>
+                            </div>
+                            <!-- language -->
+                            <div class="mb-3">
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Dil</option>
+                                    <option value="1">One</option>
+                                </select>
+                            </div>
+                            <!-- publish_year -->
+                            <div class="mb-3">
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Yapım yılı</option>
+                                    <option value="1">One</option>
+                                </select>
+                            </div>
+
+                            <!-- submit button -->
+                            <button type="submit" class="btn btn-warning w-100">Filtrele</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('../partials/_html-finish.ejs') %>

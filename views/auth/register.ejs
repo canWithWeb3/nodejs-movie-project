@@ -1,0 +1,87 @@
+<%- include('../partials/_html-start.ejs') %>
+<%- include('../partials/_navbar.ejs') %>
+
+<main>
+    <div class="container my-5">
+        <div class="col-lg-5 mx-auto">
+            <div class="card">
+                <div class="card-header"><%= title %></div>
+                <div class="card-body">
+                    <!-- form error -->
+                    <% if (error) { %>
+                        <div class="alert alert-danger"><%= error %></div>
+                    <% } %>
+
+                    <form method="POST">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <!-- username -->
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Kullanıcı adı:</label>
+                            <input 
+                                type="text" 
+                                name="username" 
+                                id="username" 
+                                class="form-control <%= errors.username && "is-invalid" %>" 
+                                value="<%= old.username %>"
+                            >
+                            <% if (errors.username) { %>
+                                <div class="text-danger"><%= errors.username.msg %></div>
+                            <% } %>
+                        </div>
+                        <!-- email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input 
+                                type="text" 
+                                name="email" 
+                                id="email" 
+                                class="form-control <%= errors.email && "is-invalid" %>" 
+                                value="<%= old.email %>"
+                            >
+                            <% if (errors.email) { %>
+                                <div class="text-danger"><%= errors.email.msg %></div>
+                            <% } %>
+                        </div>
+                        <!-- password -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Şifre:</label>
+                            <input 
+                                type="password" 
+                                name="password" 
+                                id="password" 
+                                class="form-control <%= errors.password && "is-invalid" %>" 
+                                value="<%= old.password %>"
+                            >
+                            <% if (errors.password) { %>
+                                <div class="text-danger"><%= errors.password.msg %></div>
+                            <% } %>
+                        </div>
+                        <!-- repassword -->
+                        <div class="mb-3">
+                            <label for="repassword" class="form-label">Şifre (Tekrar):</label>
+                            <input 
+                                type="password" 
+                                name="repassword" 
+                                id="repassword" 
+                                class="form-control <%= errors.repassword && "is-invalid" %>" 
+                                value="<%= old.repassword %>"
+                            >
+                            <% if (errors.repassword) { %>
+                                <div class="text-danger"><%= errors.repassword.msg %></div>
+                            <% } %>
+                        </div>
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-warning"><%= title %></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    Hesabınız var mı? <a href="/giris-yap">Giriş yap</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('../partials/_html-finish.ejs') %>

@@ -1,0 +1,59 @@
+<%- include('../partials/_html-start.ejs') %>
+<%- include('../partials/_navbar.ejs') %>
+
+<main>
+    <div class="container my-5">
+        <div class="col-lg-5 mx-auto">
+            <div class="card">
+                <div class="card-header"><%= title %></div>
+                <div class="card-body">
+                    <!-- form error -->
+                    <% if (error) { %>
+                        <div class="alert alert-danger"><%= error %></div>
+                    <% } %>
+
+                    <form method="POST">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <!-- email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input 
+                                type="text" 
+                                name="email" 
+                                id="email" 
+                                class="form-control <%= errors.email && "is-invalid" %>" 
+                                value="<%= old.email %>"
+                            >
+                            <% if (errors.email) { %>
+                                <div class="text-danger"><%= errors.email.msg %></div>
+                            <% } %>
+                        </div>
+                        <!-- password -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Şifre:</label>
+                            <input 
+                                type="password" 
+                                name="password" 
+                                id="password" 
+                                class="form-control <%= errors.password && "is-invalid" %>" 
+                                value="<%= old.password %>"
+                            >
+                            <% if (errors.password) { %>
+                                <div class="text-danger"><%= errors.password.msg %></div>
+                            <% } %>
+                        </div>
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-warning"><%= title %></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    Hesabınız yok mu? <a href="/kayit-ol">Kayıt ol</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('../partials/_html-finish.ejs') %>

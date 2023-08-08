@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- bootstrap min css -->
+    <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.min.css">
+    <!-- fontawesome min css -->
+    <link rel="stylesheet" href="/libs/@fortawesome/fontawesome-free/css/all.min.css">
+
+    <!-- custom css -->
+    <link rel="stylesheet" href="/static/css/admin.css">
+
+    <title><%= title %></title>
+  </head>
+  <body>
+    <!-- jquery min js -->
+    <script src="/libs/jquery/dist/jquery.min.js"></script>
+
+
+    <!-- loading -->
+    <div id="mySpinner" class="my-spinner">
+        <div class="spinner-border text-warning h3" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Do you wanna delete?
+            </div>
+            <form class="modal-footer" method="POST">
+                <input type="hidden" id="_csrf" name="_csrf" value="">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i> Delete</button>
+            </form>
+        </div>
+        </div>
+    </div>
+    
+    <div class="admin d-flex">
+        <div id="sidebar" class="sidebar">
+            <a href="/" class="sidebar-brand">LOGO</a>
+            <ul class="list-unstyled">
+                <li><a href="/admin" class="active">Dashboard</a></li>
+                <li><a href="/admin/categories">Kategoriler</a></li>
+                <li><a href="/admin/movies">Filmler</a></li>
+            </ul>
+        </div>
+        <div class="admin-end">
+            <div class="admin-up d-flex justify-content-between align-items-center">
+                <button id="menuBarBtn" class="d-lg-none d-inline-block btn btn-warning">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="list-unstyled text-end m-0 ms-auto">
+                    <li class="nav-item dropdown m-0">
+                      <a style="font-size: 17px;" class="nav-link dropdown-toggle m-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img style="width:35px; height:35px;" src="https://demo.themesberg.com/volt/assets/img/team/profile-picture-3.jpg" alt="" class="img-fluid me-2 rounded-circle">Can Oğuzorhan
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#"><i class="fa-regular fa-circle-user me-2"></i> Profilim</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-arrow-right-from-bracket text-danger fw-bold me-2"></i>Çıkış yap</a></li>
+                      </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="admin-content px-lg-4 px-md-3 px-2">
+                <div class="card">
+                    <div class="card-body">
+                        

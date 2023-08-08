@@ -1,0 +1,20 @@
+<%- include('../partials/_html-start.ejs') %>
+<%- include('../partials/_navbar.ejs') %>
+
+<main>
+    <div class="container my-5">
+        <div class="row">
+
+            <% movies.forEach(movie => { %>
+                <div class="col-md-2 mb-3">
+                    <%- include('../partials/_movie-card.ejs', {
+                        movie: movie
+                    }) %>
+                </div>
+            <% }) %>
+
+        </div>
+    </div>
+</main>
+
+<%- include('../partials/_html-finish.ejs') %>
