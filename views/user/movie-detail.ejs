@@ -4,37 +4,171 @@
 <main>
     <div class="container my-5">
         <!-- movie up -->
-        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
             <h1 class="h2"><%= title %></h1>
-            <div class="d-flex flex-wrap gap-2">
+            <div class="d-flex flex-wrap gap-2 text-end">
                 <button class="btn btn-warning">Fragman</button>
-                <button class="btn btn-secondary">Türkçe Altazılı</button>
-                <button class="btn btn-secondary">Türkçe Dublajlı</button>
+                <% movie.languages.forEach(ml => { %>
+                    <% if (ml === "subtitle") { %>
+                        <button class="btn btn-secondary">Türkçe Altazılı</button>
+                    <% }else{ %>
+                        <button class="btn btn-secondary">Türkçe Dublajlı</button>
+                    <% } %>
+                <% }) %>
             </div>
         </div>
 
         <!-- movie -->
-        <iframe width="100%" height="490" class="my-3" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+        <iframe width="100%" height="660" src="<%= movie.trailer %>" allow="fullscreen;">
         </iframe>
 
+        <!-- add your list -->
+        <div class="text-end mb-3">
+            <form>
+                <button class="btn btn-warning">Listene ekle</button>
+            </form>
+        </div>
+
         <!-- movie detail -->
-        <div class="row">
+        <div class="row mb-5">
             <div class="col-md-2">
                 <img src="/static/uploads/<%= movie.image %>" alt="" class="img-fluid">
             </div>
-            <div class="col-md-10">
-                <p>
-                    <strong style="width: 90px;">IMDB</strong> : 7.2
-                </p>
-                <p>
-                    <strong style="width: 90px;">IMDB</strong> : 7.2
-                </p>
-                <p>
-                    <strong style="width: 90px;">IMDB</strong> : 7.2
-                </p>
+            <div class="movie-detail col-md-10">
+                <!-- imdb -->
+                <div>
+                    <span class="movie-detail-span">IMDB</span>
+                    <span>: <%= movie.imdb %></span>
+                </div>
+                <!-- categories -->
+                <div>
+                    <span class="movie-detail-span">Kategoriler</span>
+                    <span>: 
+                        <% movie.categories.forEach(category => { %>
+                            <a href="/kategori/<%= category.slug %>"><%= category.name %>, </a>
+                        <% }) %>
+                    </span>
+                </div>
+                <!-- publish_year -->
+                <div>
+                    <span class="movie-detail-span">Yapım</span>
+                    <span>: <%= movie.publish_year %></span>
+                </div>
+                <!-- director -->
+                <div>
+                    <span class="movie-detail-span">Yönetmen</span>
+                    <span>: Christopher Nolan</span>
+                </div>
+                <!-- actors -->
+                <div>
+                    <span class="movie-detail-span">Oyuncular</span>
+                    <span>: Christopher Nolan</span>
+                </div>
+                <!-- summary -->
+                <div>
+                    <span class="movie-detail-span">Film özeti</span>
+                    <span>: <%= movie.description %></span>
+                    <!-- <span>: Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus voluptate debitis aspernatur, omnis earum consequatur. Quod velit repudiandae explicabo voluptas incidunt excepturi sed eligendi provident non unde dolore eveniet nobis ad nulla, harum asperiores veniam, architecto quasi blanditiis minus, amet facilis corrupti maxime sapiente. Nam nisi explicabo nemo aut id natus incidunt nesciunt? Esse, perspiciatis.</span> -->
+                </div>
             </div>
+        </div>
+
+        <!-- add comment -->
+        <div class="mb-5">
+            <% if (isAuth) { %>
+                <div class="card">
+                    <div class="card-header">Film hakkında ne düşünüyorsun?</div>
+                    <div class="card-body">
+                        <!-- form error -->
+                        <div id="addCommentFormError" class="alert alert-danger d-none">
+                            Bilinmeyen hata
+                        </div>
+                        <!-- form -->
+                        <form id="addCommentForm">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <div class="mb-3">
+                                <label for="comment" class="form-label">Yorumunuz:</label>
+                                <textarea name="comment" id="comment" rows="5" class="form-control mb-3" placeholder="Yorumunuzu giriniz"></textarea>
+                                <div id="comment_err" class="text-danger"></div>
+                            </div>
+    
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-warning">Yorum yap</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            <% }else{ %>
+                <div class="alert alert-warning">
+                    Yorum yapmak için giriş yapmalısınız. <a href="/giris-yap">Giriş yap</a>
+                </div>
+            <% } %>
+        </div>
+
+        <!-- comments -->
+        <div>
+            <h2 class="h3 mb-2">Yorumlar</h2>
+
+            <% if (movie.comments.length == 0) { %>
+                <div class="alert alert-warning text-center">
+                    <p class="mb-0">Bu film için yorum bulunmuyor.</p>
+                </div>
+            <% }else{ %>
+                <div>
+                    <% movie.comments.forEach(comment => { %>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <img style="width: 70px; height:70px;" src="https://demo.themesberg.com/volt/assets/img/team/profile-picture-3.jpg" alt="" class="img-fluid rounded-circle me-3">
+                                    <div class="w-100">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5 class="card-title"><%= comment.user.username %></h5>
+                                            <span><i class="fa-solid fa-calendar-days"></i> <%= comment.user.createdAt %></span>
+                                        </div>
+                                        <hr>
+                                        <p class="card-text"><%= comment.text %></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } %>
+
         </div>
     </div>
 </main>
 
+<!-- add comment form submit -->
+<script type="text/javascript">
+    const addCommentForm = document.getElementById("addCommentForm")
+    addCommentForm.addEventListener("submit", async (e) => {
+        e.preventDefault()
+
+        const comment = document.getElementById("comment")
+        const comment_err = document.getElementById("comment_err")
+        const addCommentFormError = document.getElementById("addCommentFormError")
+
+        comment.classList.remove("is-invalid")
+        comment_err.textContent = ""
+
+        addCommentFormError.classList.add("d-none")
+                
+        if(comment.value.trim()){
+            const res = await fetch("/movie/<%= movie.slug %>/addComment", {
+                method: "POST",
+                body: JSON.stringify({ comment: comment.value.trim() }),
+                headers: { "Content-Type": "application/json" }
+            })
+
+            window.location.href = window.location.pathname
+        }else{
+            comment.classList.add("is-invalid")
+            comment_err.textContent = "Yorum boş bırakılamaz"
+        }
+        
+    })
+</script>
+
+<%- include('../partials/_footer.ejs') %>
 <%- include('../partials/_html-finish.ejs') %>

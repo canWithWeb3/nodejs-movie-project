@@ -3,45 +3,80 @@
 
 <main>
     <div class="container my-5">
-        <div class="row">
-            <div class="col-md-9">
+        <div class="row g-3">
+            <div class="col-lg-9 order-lg-1 order-2">
                 <div class="row">
-                    <div class="col-md-2">
-                        
-                    </div>
+                    <% if (movies.length) { %>
+                        <% movies.forEach(movie => { %>
+                            <div class="col-xl-3 col-md-4 col-6 mb-3">
+                                <%- include('../partials/_movie-card.ejs', {
+                                    movie: movie
+                                }) %>
+                            </div>
+                        <% }) %>
+                    <% }else{ %>
+                        <%- include('../partials/_no-movies.ejs') %>
+                    <% } %>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-lg-3 order-lg-2 order-1">
                 <div class="card">
                     <div class="card-header">Filtrele</div>
                     <div class="card-body">
-                        <form method="POST">
+                        <form>
                             <!-- categories -->
                             <div class="mb-3">
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Kategori seçiniz</option>
-                                    <option value="1">One</option>
+                                <select class="form-select" name="category" aria-label="Default select example">
+                                    <option value="" selected>Kategori seçiniz</option>
+                                    <% categories.forEach(category => { %>
+                                        <option value="<%= category._id %>" 
+                                            <% if (category._id == old.category) { %>
+                                                selected
+                                            <% } %>    
+                                        ><%= category.name %></option>
+                                    <% }) %>
                                 </select>
                             </div>
                             <!-- imdb -->
                             <div class="mb-3">
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Imdb seçiniz</option>
-                                    <option value="1">One</option>
+                                <select class="form-select" name="imdb" aria-label="Default select example">
+                                    <option value="" selected>Imdb seçiniz</option>
+                                    <% for( let i = 0; i <= 9; i++ ) { %>
+                                        <option value="<%= i %>" 
+                                            <% if (i == old.imdb) { %>
+                                                selected
+                                            <% } %>    
+                                        ><%= i %> ve üzeri</option>
+                                    <% } %>
                                 </select>
                             </div>
                             <!-- language -->
                             <div class="mb-3">
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Dil</option>
-                                    <option value="1">One</option>
+                                <select class="form-select" name="language" aria-label="Default select example">
+                                    <option value="" selected>Dil seçiniz</option>
+                                    <option value="subtitle"
+                                        <% if ("subtitle" == old.language) { %>
+                                            selected
+                                        <% } %> 
+                                    >Türkçe Altyazılı</option>
+                                    <option value="dubbed"
+                                        <% if ("dubbed" == old.language) { %>
+                                            selected
+                                        <% } %> 
+                                    >Türkçe Dublaj</option>
                                 </select>
                             </div>
                             <!-- publish_year -->
                             <div class="mb-3">
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Yapım yılı</option>
-                                    <option value="1">One</option>
+                                <select class="form-select" name="publish_year" aria-label="Default select example">
+                                    <option value="" selected>Yapım yılı seçiniz</option>
+                                    <% publish_years.forEach(py => { %>
+                                        <option value="<%= py %>" 
+                                            <% if (py == old.publish_year) { %>
+                                                selected
+                                            <% } %>    
+                                        ><%= py %></option>
+                                    <% }) %>
                                 </select>
                             </div>
 
@@ -55,4 +90,7 @@
     </div>
 </main>
 
+<%- include('../partials/_pagination.ejs') %>
+
+<%- include('../partials/_footer.ejs') %>
 <%- include('../partials/_html-finish.ejs') %>

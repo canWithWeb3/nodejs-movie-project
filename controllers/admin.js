@@ -6,15 +6,21 @@ const slugField = require("../helpers/slugfield")
 // movies start
 exports.post_create_movie = async (req, res) => {
     try{
-        const { original_name, turkish_name, publish_year, imdb, categories } = req.body
+        const { original_name, turkish_name, description, publish_year, imdb, trailer, categories, languages } = req.body
+
+        const youtube = trailer.split("watch?v=")[1]
+        const embeddedYoutube = `https://www.youtube.com/embed/${youtube}`
 
         await Movie.create({
             image: req.file.filename,
             original_name: original_name,
             turkish_name: turkish_name,
             publish_year: publish_year,
+            description: description,
             imdb: imdb,
+            trailer: embeddedYoutube,
             categories: categories,
+            languages: languages,
             slug: slugField(original_name)
         })
 

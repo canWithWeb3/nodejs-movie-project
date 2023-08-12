@@ -22,7 +22,7 @@
                                 name="email" 
                                 id="email" 
                                 class="form-control <%= errors.email && "is-invalid" %>" 
-                                value="<%= old.email %>"
+                                value="<%= old.email || "canooo1@gmail.com" %>"
                             >
                             <% if (errors.email) { %>
                                 <div class="text-danger"><%= errors.email.msg %></div>
@@ -36,7 +36,7 @@
                                 name="password" 
                                 id="password" 
                                 class="form-control <%= errors.password && "is-invalid" %>" 
-                                value="<%= old.password %>"
+                                value="<%= old.password || "canooo1" %>"
                             >
                             <% if (errors.password) { %>
                                 <div class="text-danger"><%= errors.password.msg %></div>
@@ -56,4 +56,5 @@
     </div>
 </main>
 
+<%- include('../partials/_footer.ejs') %>
 <%- include('../partials/_html-finish.ejs') %>

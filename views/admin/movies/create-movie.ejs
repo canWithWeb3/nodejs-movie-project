@@ -60,40 +60,71 @@
                 </div>
             </div>
 
-            <!-- publish_year and imdb -->
-            <div class="row mb-3">
-                <!-- publish_year -->
-                <div class="col-md-3">
-                    <label for="publish_year" class="form-label">Yapım yılı:</label>
-                    <input 
-                        type="text" 
-                        name="publish_year" 
-                        id="publish_year" 
-                        class="form-control <%= errors.publish_year && "is-invalid" %>"
-                        value="<%= old.publish_year %>"
-                    >
-                    <% if (errors.publish_year) { %>
-                        <div class="text-danger"><%= errors.publish_year.msg %></div>
-                    <% } %>
+            <!-- description -->
+            <div class="mb-3">
+                <label for="description" class="form-label">Açıklama:</label>
+                <textarea name="description" id="description" rows="5" class="form-control"></textarea>
+                <% if (errors.description) { %>
+                    <div class="text-danger"><%= errors.description.msg %></div>
+                <% } %>
+            </div>
+
+            <!-- publish_year, imdb and trailer -->
+            <div class="row">
+                <!-- publish_year and imdb -->
+                <div class="col-md-6">
+                    <div class="row mb-3">
+                        <!-- publish_year -->
+                        <div class="col-md-6">
+                            <label for="publish_year" class="form-label">Yapım yılı:</label>
+                            <input 
+                                type="text" 
+                                name="publish_year" 
+                                id="publish_year" 
+                                class="form-control <%= errors.publish_year && "is-invalid" %>"
+                                value="<%= old.publish_year %>"
+                            >
+                            <% if (errors.publish_year) { %>
+                                <div class="text-danger"><%= errors.publish_year.msg %></div>
+                            <% } %>
+                        </div>
+                        <!-- imdb -->
+                        <div class="col-md-6">
+                            <label for="imdb" class="form-label">Imdb:</label>
+                            <input 
+                                type="text" 
+                                name="imdb" 
+                                id="imdb" 
+                                class="form-control <%= errors.imdb && "is-invalid" %>"
+                                value="<%= old.imdb %>"
+                            >
+                            <% if (errors.imdb) { %>
+                                <div class="text-danger"><%= errors.imdb.msg %></div>
+                            <% } %>
+                        </div>
+                    </div>
                 </div>
-                <!-- imdb -->
-                <div class="col-md-3">
-                    <label for="imdb" class="form-label">Imdb:</label>
-                    <input 
-                        type="text" 
-                        name="imdb" 
-                        id="imdb" 
-                        class="form-control <%= errors.imdb && "is-invalid" %>"
-                        value="<%= old.imdb %>"
-                    >
-                    <% if (errors.imdb) { %>
-                        <div class="text-danger"><%= errors.imdb.msg %></div>
-                    <% } %>
+                <!-- trailer -->
+                <div class="col-md-6">
+                    <div class="col-12">
+                        <label for="trailer" class="form-label">Fragman (Youtube):</label>
+                        <input 
+                            type="text" 
+                            name="trailer" 
+                            id="trailer" 
+                            class="form-control <%= errors.trailer && "is-invalid" %>"
+                            value="<%= old.trailer %>"
+                        >
+                        <% if (errors.trailer) { %>
+                            <div class="text-danger"><%= errors.trailer.msg %></div>
+                        <% } %>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-md-2">
-            <div class="card">
+            <!-- categories -->
+            <div class="card mb-3">
                 <div class="card-header">Kategoriler</div>
                 <div class="card-body">
                     <% if (errors.categories) { %>
@@ -107,6 +138,25 @@
                             </label>
                           </div>
                     <% }) %>
+                </div>
+            </div>
+            
+            <!-- languages -->
+            <div class="card mb-3">
+                <div class="card-header">Diller</div>
+                <div class="card-body">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="languages[]" value="subtitle" id="subtitle">
+                        <label class="form-check-label" for="subtitle">
+                          Türkçe Altyazılı
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="languages[]" value="dubbed" id="dubbed">
+                        <label class="form-check-label" for="dubbed">
+                          Türkçe Dublaj
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>

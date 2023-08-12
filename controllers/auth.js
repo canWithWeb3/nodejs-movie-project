@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 const User = require("../models/user")
 const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
 
 exports.post_login = async (req, res) => {
     try{
@@ -31,6 +32,9 @@ exports.post_login = async (req, res) => {
                 error: "Email veya parola hatalı"
             })
         }
+
+        const token = jwt.sign({ _id: user._id }, "jwtPrivateKey")
+        req.session.authToken = token
 
         return res.redirect("/")
     }catch(err){
@@ -65,7 +69,7 @@ exports.post_register = async (req, res) => {
                 title: "Register",
                 old: req.body,
                 errors: {
-                    email: "Bu email kullanılmaktadır"
+                    email: { msg: "Bu email kullanılmaktadır." }
                 }
             })
         }

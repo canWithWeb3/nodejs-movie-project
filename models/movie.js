@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose")
+const { commentSchema } = require("../models/comment")
 
 const movieSchema = Schema({
     image: {
@@ -17,8 +18,16 @@ const movieSchema = Schema({
         type: Number,
         required: true
     },
+    description: {
+        type: String,
+        required: false
+    },
     imdb: {
         type: Number,
+        required: true
+    },
+    trailer: {
+        type: String,
         required: true
     },
     categories: [{
@@ -26,10 +35,15 @@ const movieSchema = Schema({
         ref: "Category",
         required: true
     }],
+    languages: [{
+        type: String,
+        required: true
+    }],
     slug: {
         type: String,
         required: true
-    }
+    },
+    comments: [commentSchema]
 }, { timestamps: true })
 
 const Movie = model("Movie", movieSchema)

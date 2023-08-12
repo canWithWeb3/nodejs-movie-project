@@ -1,0 +1,37 @@
+<% if (movies.length) { %>
+  <nav aria-label="Page navigation example mb-5">
+      <ul class="pagination justify-content-center">
+
+        <% if (currentPage > 1) { %>
+          <li class="page-item">
+            <% if (existQuery) { %>
+              <a href="<%= url %>&page=1" class="page-link">İlk Sayfa</a>
+            <% }else{ %>
+              <a href="?page=1" class="page-link">İlk Sayfa</a>
+            <% } %>
+          </li>
+        <% } %>
+
+        <% for( let i = 1; i <= totalPages; i++ ) { %>
+            <li class="page-item <%= currentPage == i && "active" %>">
+              <% if (existQuery) { %>
+                <a href="<%= url %>&page=<%= i %>" class="page-link"><%= i %></a>
+              <% }else{ %>
+                <a href="?page=<%= i %>" class="page-link"><%= i %></a>
+              <% } %>
+            </li>
+        <% } %>
+
+        
+        <% if (currentPage != totalPages) { %>
+          <li class="page-item">
+            <% if (existQuery) { %>
+              <a href="<%= url %>&page=<%= totalPages %>" class="page-link">Son Sayfa</a>
+            <% }else{ %>
+              <a href="?page=<%= totalPages %>" class="page-link">Son Sayfa</a>
+            <% } %>
+          </li>
+        <% } %>
+      </ul>
+  </nav>
+<% } %>
