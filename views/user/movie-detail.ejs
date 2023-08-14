@@ -24,8 +24,9 @@
 
         <!-- add your list -->
         <div class="text-end mb-3">
-            <form>
-                <button class="btn btn-warning">Listene ekle</button>
+            <form id="addToList" action="/movie/<%= movie.slug %>/addList">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button class="btn btn-warning <%= !isAuth && "disabled" %>">Listene ekle</button>
             </form>
         </div>
 
@@ -119,7 +120,11 @@
                         <div class="card mb-3">
                             <div class="card-body">
                                 <div class="d-flex">
-                                    <img style="width: 70px; height:70px;" src="https://demo.themesberg.com/volt/assets/img/team/profile-picture-3.jpg" alt="" class="img-fluid rounded-circle me-3">
+                                    <% if (!user.image) { %>
+                                        <img style="width: 70px; height:70px;" src="/static/img/user.jpg" alt="" class="img-fluid rounded-circle me-3">
+                                    <% }else{ %>
+                                        <img style="width: 70px; height:70px;" src="/static/uploads/<%= user.image %>" alt="" class="img-fluid rounded-circle me-3">
+                                    <% } %>
                                     <div class="w-100">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h5 class="card-title"><%= comment.user.username %></h5>
@@ -142,6 +147,22 @@
 <!-- add comment form submit -->
 <script type="text/javascript">
     const addCommentForm = document.getElementById("addCommentForm")
+    const addToList = document.getElementById("addToList")
+
+    addToList.addEventListener("submit", async (e) => {
+        e.preventDefault()
+
+        const res = await fetch("/movie/<%= movie.slug %>/addList", {
+            method: "POST",
+            body: JSON.stringify({ comment: comment.value.trim() }),
+            headers: { "Content-Type": "application/json" }
+        })
+
+        const data = res.json()
+
+        window.location.href = "/profilim"
+    })
+
     addCommentForm.addEventListener("submit", async (e) => {
         e.preventDefault()
 

@@ -1,0 +1,45 @@
+<%- include('../partials/_html-start.ejs') %>
+<%- include('../partials/_navbar.ejs') %>
+
+<main>
+    <div class="container my-5">
+        <div class="card">
+            <div class="card-header">Profilim</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xl-2 col-lg-3 col-md-6">
+                        <% if (!user.image) { %>
+                            <img style="width: 140px; height:140px; object-fit:cover;" src="/static/img/user.jpg" alt="" class="user-image img-fluid rounded-circle mx-auto">
+                        <% }else{ %>
+                            <img style="width: 140px; height:140px; object-fit:cover;" src="/static/uploads/<%= user.image %>" alt="" class="user-image img-fluid rounded-circle mx-auto">
+                        <% } %>
+                        <form>
+                            <label for="image" class="btn btn-info w-100 my-2">Resim seç</label>
+                            <input type="file" name="image" id="image" class="change-img-file d-none">
+                            <button id="changeImageFormBtn" type="submit" class="btn btn-warning disabled w-100">Kaydet</button>
+                        </form>
+                    </div>
+                    <div class="col-md-8">
+                        <h4 class="card-title"><%= user.username %></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    const user_image = document.querySelector(".user-image")
+    const change_img_file = document.querySelector(".change-img-file")
+    const changeImageFormBtn = document.getElementById("changeImageFormBtn")
+
+    change_img_file.addEventListener("change", (e) => {
+        if(change_img_file.files[0]){
+            user_image.src = URL.createObjectURL(change_img_file.files[0])
+            changeImageFormBtn.classList.remove("disabled")
+        }
+    })
+</script>
+
+<%- include('../partials/_footer.ejs') %>
+<%- include('../partials/_html-finish.ejs') %>

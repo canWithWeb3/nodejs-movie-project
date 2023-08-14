@@ -30,9 +30,11 @@ app.use("/libs", express.static(path.join(__dirname, "node_modules")));
 app.use("/static", express.static(path.join(__dirname, "public")));
 
 const adminRoutes = require("./routes/admin")
+const authRoutes = require("./routes/auth")
 const userRoutes = require("./routes/user")
 
 app.use("/admin", adminRoutes)
+app.use(authRoutes)
 app.use(userRoutes)
 
 const DB_USERNAME = "canoguzorhan066"

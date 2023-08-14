@@ -3,6 +3,53 @@ const User = require("../models/user")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
+exports.post_change_image = async (req, res) => {
+    let user
+    const token = req.session.authToken
+    if(token){
+        const decodedToken = jwt.verify(token, "jwtPrivateKey")
+        if(decodedToken._id){
+            user = await User.findOne({ _id: decodedToken._id })
+            if(!user){
+                return res.redirect("/")
+            }
+        }else{
+            return res.redirect("/")
+        }
+    }else{
+        return res.redirect("/")
+    }
+
+    console.log(req.file.filename)
+
+    return res.redirect("/profilim")
+}
+
+exports.get_profile = async (req, res) => {
+    let myUser
+    const token = req.session.authToken
+    if(token){
+        const decodedToken = jwt.verify(token, "jwtPrivateKey")
+        if(decodedToken._id){
+            const user = await User.findOne({ _id: decodedToken._id })
+            if(user){
+                myUser = user
+            }
+        }
+    }
+
+    return res.render("auth/profile", {
+        title: "Profilim",
+        user: myUser,
+    })
+}
+
+exports.post_logout = (req, res) => {
+    req.session.destroy()
+
+    return res.redirect("/")
+}
+
 exports.post_login = async (req, res) => {
     try{
         const { email, password } = req.body

@@ -38,8 +38,18 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <% if (isAuth) { %>
-                <li><a class="dropdown-item" href="/giris-yap">Profilim</a></li>
-                <li><a class="dropdown-item" href="/kayit-ol">Çıkış yap</a></li>
+                <li><a class="dropdown-item" href="/profilim">Profilim</a></li>
+                <li>
+                  <a 
+                      class="dropdown-item" 
+                      onclick="event.preventDefault(); document.getElementById('logoutForm').submit();" 
+                      href="/logout">
+                          Çıkış yap
+                  </a>
+                </li>
+                <form action="/cikis-yap" id="logoutForm" method="POST" class="d-none">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                </form>
               <% }else{ %>
                 <li><a class="dropdown-item" href="/giris-yap">Giriş yap</a></li>
                 <li><a class="dropdown-item" href="/kayit-ol">Kayıt ol</a></li>
@@ -49,10 +59,10 @@
         </ul>
         
         <!-- navbar form -->
-        <form action="/search" class="d-flex">
+        <!-- <form action="/search" class="d-flex">
           <input class="form-control me-2" name="query" id="query" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-dark" type="submit">Search</button>
-        </form>
+        </form> -->
       </div>
     </div>
 </nav>

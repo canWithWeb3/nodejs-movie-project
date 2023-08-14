@@ -12,6 +12,7 @@ module.exports = async (req, res, next) => {
     res.locals.errors = {}
     
     res.locals.isAuth = false
+    res.locals.user = {}
     res.locals.userId = false
     res.locals.username = ""
     res.locals.isAdmin = false
