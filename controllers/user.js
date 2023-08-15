@@ -36,6 +36,7 @@ exports.post_movie_add_list = async (req, res) => {
             return res.status(400).json({ error: "Bilinmeyen hata" })
         }
     }catch(err){
+        console.log(err)
         return res.status(400).json({ error: "Bilinmeyen hata" })
     }
 }

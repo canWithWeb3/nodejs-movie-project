@@ -22,13 +22,13 @@
         <iframe width="100%" height="660" src="<%= movie.trailer %>" allow="fullscreen;">
         </iframe>
 
-        <!-- add your list -->
+        <!-- add your list
         <div class="text-end mb-3">
             <form id="addToList" action="/movie/<%= movie.slug %>/addList">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <button class="btn btn-warning <%= !isAuth && "disabled" %>">Listene ekle</button>
             </form>
-        </div>
+        </div> -->
 
         <!-- movie detail -->
         <div class="row mb-5">
@@ -109,37 +109,37 @@
         <!-- comments -->
         <div>
             <h2 class="h3 mb-2">Yorumlar</h2>
-
-            <% if (movie.comments.length == 0) { %>
-                <div class="alert alert-warning text-center">
-                    <p class="mb-0">Bu film için yorum bulunmuyor.</p>
-                </div>
-            <% }else{ %>
+            <% if (movie.comments.length > 0) { %>
                 <div>
                     <% movie.comments.forEach(comment => { %>
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <% if (!user.image) { %>
-                                        <img style="width: 70px; height:70px;" src="/static/img/user.jpg" alt="" class="img-fluid rounded-circle me-3">
-                                    <% }else{ %>
-                                        <img style="width: 70px; height:70px;" src="/static/uploads/<%= user.image %>" alt="" class="img-fluid rounded-circle me-3">
-                                    <% } %>
-                                    <div class="w-100">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <h5 class="card-title"><%= comment.user.username %></h5>
-                                            <span><i class="fa-solid fa-calendar-days"></i> <%= comment.user.createdAt %></span>
+                        <% if (comment.user) { %>
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <% if (!user.image) { %>
+                                            <img style="width: 70px; height:70px;" src="/static/img/user.jpg" alt="" class="img-fluid rounded-circle me-3">
+                                        <% }else{ %>
+                                            <img style="width: 70px; height:70px;" src="/static/uploads/<%= user.image %>" alt="" class="img-fluid rounded-circle me-3">
+                                        <% } %>
+                                        <div class="w-100">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5 class="card-title"><%= comment.user.username %></h5>
+                                                <span><i class="fa-solid fa-calendar-days"></i> <%= comment.user.createdAt %></span>
+                                            </div>
+                                            <hr>
+                                            <p class="card-text"><%= comment.text %></p>
                                         </div>
-                                        <hr>
-                                        <p class="card-text"><%= comment.text %></p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        <% } %>
                     <% }) %>
                 </div>
+            <% }else{ %>
+                <div class="alert alert-warning text-center">
+                    <p class="mb-0">Bu film için yorum bulunmuyor.</p>
+                </div>
             <% } %>
-
         </div>
     </div>
 </main>
