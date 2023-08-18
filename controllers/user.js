@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 const User = require("../models/user")
 const Movie = require("../models/movie")
+const Category = require("../models/category")
 const { Comment } = require("../models/comment")
 const jwt = require("jsonwebtoken")
 
@@ -10,10 +11,10 @@ exports.post_movie_add_list = async (req, res) => {
     try{
         const { movie_slug } = req.params;
         if(!movie_slug){ return res.redirect("/") }
-        console.log(1)
+
         const movie = await Movie.findOne({ slug: movie_slug })
         if(!movie){ return res.redirect("/") }
-        console.log(2)
+        
         let user
         const token = req.session.authToken
         if(token){
@@ -25,24 +26,21 @@ exports.post_movie_add_list = async (req, res) => {
                 }
             }
         }
-        console.log(3)
         if(!user.movies.includes(movie._id)){
-            console.log(4)
             user.movies.unshift(movie._id)
             await movie.save()
             return res.status(400).json({ success: true })
         }else{
-            console.log(5)
             return res.status(400).json({ error: "Bilinmeyen hata" })
         }
     }catch(err){
-        console.log(err)
         return res.status(400).json({ error: "Bilinmeyen hata" })
     }
 }
 
 exports.post_movie_comment = async (req, res) => {
     try{
+        console.log("posted movie")
         const { comment } = req.body;
         const { movie_slug } = req.params;
         if(!movie_slug){ return res.redirect("/") }
